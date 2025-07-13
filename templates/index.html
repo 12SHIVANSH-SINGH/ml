@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NGO Inventory Prediction</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 4px solid #3b82f6;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-5xl">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-blue-600">Inventory Prediction for Eye Care Programs</h1>
+            <p class="text-gray-600 mt-2">Enter program details to forecast the required eyeglass inventory.</p>
+        </header>
+
+        <main class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
+            <div id="prediction-form">
+                <h2 class="text-2xl font-semibold mb-6 text-gray-700">New Program Details</h2>
+                <form id="inventory-form" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="location" class="block text-sm font-medium text-gray-600 mb-2">Program Location</label>
+                        <select id="location" name="location" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+                            <option value="Mawlynnong">Mawlynnong, Meghalaya</option>
+                            <option value="Punsari">Punsari, Gujarat</option>
+                            <option value="Dharnai">Dharnai, Bihar</option>
+                            <option value="Hiware Bazar">Hiware Bazar, Maharashtra</option>
+                            <option value="Khonoma">Khonoma, Nagaland</option>
+                            <option value="Malana">Malana, Himachal Pradesh</option>
+                            <option value="Pothanikkad">Pothanikkad, Kerala</option>
+                            <option value="Shani Shingnapur">Shani Shingnapur, Maharashtra</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="age_group" class="block text-sm font-medium text-gray-600 mb-2">Target Age Group</label>
+                        <select id="age_group" name="age_group" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+                            <option value="Children">Children (Myopia Focus)</option>
+                            <option value="Adults">Adults (General)</option>
+                            <option value="Seniors">Seniors (Presbyopia Focus)</option>
+                        </select>
+                    </div>
+                    <div class="md:col-span-2">
+                        <label for="month" class="block text-sm font-medium text-gray-600 mb-2">Program Month</label>
+                        <select id="month" name="month" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+                            <option value="1">January</option>
+                            <option value="2">February</option>
+                            <option value="3">March</option>
+                            <option value="4">April</option>
+                            <option value="5">May</option>
+                            <option value="6">June</option>
+                            <option value="7">July</option>
+                            <option value="8">August</option>
+                            <option value="9">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
+                        </select>
+                    </div>
+                    <div class="md:col-span-2 text-center mt-4">
+                        <button type="submit" id="predict-button" class="w-full md:w-auto bg-blue-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 transition-transform transform hover:scale-105">
+                            Predict Inventory
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="results-container" class="mt-10 hidden">
+                <div id="loader" class="mx-auto my-8 loader hidden"></div>
+                <div id="error-message" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg relative" role="alert">
+                    <strong class="font-bold">Error:</strong>
+                    <span class="block sm:inline" id="error-text"></span>
+                </div>
+                <div id="results-content" class="hidden fade-in">
+                    <h2 class="text-2xl font-semibold mb-6 text-gray-700 text-center">Predicted Inventory Requirements</h2>
+                    <p class="text-gray-600 mb-6 text-center">Based on the program details, here is the recommended minimum inventory to have on hand.</p>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                        <div class="w-full h-full min-h-[300px]">
+                            <canvas id="predictionChart"></canvas>
+                        </div>
+                        <div class="overflow-x-auto">
+                           <table class="min-w-full bg-white border border-gray-200 rounded-lg overflow-hidden">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Spec Power (Diopters)</th>
+                                        <th class="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Predicted Quantity</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="results-body" class="divide-y divide-gray-200">
+                                    <!-- Results will be injected here by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                     <div class="text-center mt-8">
+                        <button onclick="resetForm()" class="bg-gray-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-4 focus:ring-gray-300 transition">
+                            New Prediction
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const form = document.getElementById('inventory-form');
+        const predictButton = document.getElementById('predict-button');
+        const resultsContainer = document.getElementById('results-container');
+        const resultsContent = document.getElementById('results-content');
+        const resultsBody = document.getElementById('results-body');
+        const loader = document.getElementById('loader');
+        const errorMessage = document.getElementById('error-message');
+        const errorText = document.getElementById('error-text');
+        
+        const chartCanvas = document.getElementById('predictionChart');
+        let predictionChart = null;
+
+        // --- Event Listener for Form Submission ---
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault(); 
+
+            // Show loader and hide previous results/errors
+            predictButton.disabled = true;
+            predictButton.textContent = 'Predicting...';
+            resultsContainer.classList.remove('hidden');
+            resultsContent.classList.add('hidden');
+            loader.classList.remove('hidden');
+            errorMessage.classList.add('hidden');
+
+            const formData = new FormData(form);
+            const data = {
+                location: formData.get('location'),
+                age_group: formData.get('age_group'),
+                month: parseInt(formData.get('month'), 10)
+            };
+
+            // --- API Call to Flask Backend ---
+            try {
+                const response = await fetch('http://127.0.0.1:5000/predict', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
+                }
+
+                const predictions = await response.json();
+                displayResults(predictions);
+
+            } catch (error) {
+                console.error('Error:', error);
+                displayError(error.message);
+            } finally {
+                loader.classList.add('hidden');
+                predictButton.disabled = false;
+                predictButton.textContent = 'Predict Inventory';
+            }
+        });
+
+        // --- Function to Display Results in Table and Chart ---
+        function displayResults(predictions) {
+            resultsContent.classList.remove('hidden');
+            resultsBody.innerHTML = ''; 
+
+            if (predictions.length === 0) {
+                resultsBody.innerHTML = '<tr><td colspan="2" class="text-center py-4">No prediction data available.</td></tr>';
+                return;
+            }
+
+            predictions.forEach(item => {
+                const row = document.createElement('tr');
+                row.className = 'hover:bg-gray-50';
+                row.innerHTML = `
+                    <td class="py-4 px-6 whitespace-nowrap">
+                        <div class="text-sm font-medium text-gray-900">${item.spec_power}</div>
+                    </td>
+                    <td class="py-4 px-6 whitespace-nowrap">
+                        <div class="text-sm text-gray-800 font-semibold">${item.predicted_quantity} units</div>
+                    </td>
+                `;
+                resultsBody.appendChild(row);
+            });
+
+            // --- Chart.js Integration ---
+            const labels = predictions.map(p => p.spec_power);
+            const data = predictions.map(p => p.predicted_quantity);
+
+            if (predictionChart) {
+                predictionChart.destroy(); // Destroy old chart instance before creating new one
+            }
+
+            predictionChart = new Chart(chartCanvas, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Predicted Quantity',
+                        data: data,
+                        backgroundColor: 'rgba(59, 130, 246, 0.5)',
+                        borderColor: 'rgba(59, 130, 246, 1)',
+                        borderWidth: 1,
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Quantity (units)'
+                            }
+                        },
+                        x: {
+                             title: {
+                                display: true,
+                                text: 'Spectacle Power (Diopters)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `Quantity: ${context.parsed.y}`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        function displayError(message) {
+            errorText.textContent = `Failed to get prediction. Please ensure the backend server is running and accessible. Details: ${message}`;
+            errorMessage.classList.remove('hidden');
+            resultsContent.classList.add('hidden');
+        }
+
+        function resetForm() {
+            form.reset();
+            resultsContainer.classList.add('hidden');
+            errorMessage.classList.add('hidden');
+            if (predictionChart) {
+                predictionChart.destroy();
+            }
+        }
+    </script>
+</body>
+</html>

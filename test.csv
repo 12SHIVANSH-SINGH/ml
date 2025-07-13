@@ -1,0 +1,118 @@
+location,age_group,month,spec_power,quantity
+Mawlynnong,Children,1,-1.00,18
+Mawlynnong,Children,1,-1.25,15
+Mawlynnong,Children,1,-1.50,12
+Mawlynnong,Adults,1,1.25,22
+Mawlynnong,Adults,1,1.50,28
+Mawlynnong,Seniors,1,2.00,35
+Mawlynnong,Seniors,1,2.25,32
+Mawlynnong,Children,1,-1.00,18
+Mawlynnong,Children,1,-1.25,15
+Mawlynnong,Children,1,-1.50,12
+Mawlynnong,Adults,1,1.25,22
+Mawlynnong,Adults,1,1.50,28
+Mawlynnong,Seniors,1,2.00,35
+Mawlynnong,Seniors,1,2.25,32
+Mawlynnong,Children,1,-1.00,18
+Mawlynnong,Children,1,-1.25,15
+Mawlynnong,Children,1,-1.50,12
+Mawlynnong,Adults,1,1.25,22
+Mawlynnong,Adults,1,1.50,28
+Mawlynnong,Seniors,1,2.00,35
+Mawlynnong,Seniors,1,2.25,32
+Mawlynnong,Children,1,-1.00,18
+Mawlynnong,Children,1,-1.25,15
+Mawlynnong,Children,1,-1.50,12
+Mawlynnong,Adults,1,1.25,22
+Mawlynnong,Adults,1,1.50,28
+Mawlynnong,Seniors,1,2.00,35
+Mawlynnong,Seniors,1,2.25,32
+Mawlynnong,Children,1,-1.00,18
+Mawlynnong,Children,1,-1.25,15
+Mawlynnong,Children,1,-1.50,12
+Mawlynnong,Adults,1,1.25,22
+Mawlynnong,Adults,1,1.50,28
+Mawlynnong,Seniors,1,2.00,35
+Mawlynnong,Seniors,1,2.25,32
+Mawlynnong,Children,1,-1.00,18
+Mawlynnong,Children,1,-1.25,15
+Mawlynnong,Children,1,-1.50,12
+Mawlynnong,Adults,1,1.25,22
+Mawlynnong,Adults,1,1.50,28
+Mawlynnong,Seniors,1,2.00,35
+Mawlynnong,Seniors,1,2.25,32
+Mawlynnong,Children,1,-1.00,18
+Mawlynnong,Children,1,-1.25,15
+Mawlynnong,Children,1,-1.50,12
+Mawlynnong,Adults,1,1.25,22
+Mawlynnong,Adults,1,1.50,28
+Mawlynnong,Seniors,1,2.00,35
+Mawlynnong,Seniors,1,2.25,32
+Punsari,Children,2,-0.75,20
+Punsari,Children,2,-1.00,17
+Punsari,Adults,2,1.00,25
+Punsari,Adults,2,1.75,21
+Punsari,Seniors,2,2.25,38
+Punsari,Seniors,2,2.50,34
+Dharnai,Children,3,-1.25,22
+Dharnai,Children,3,-1.50,18
+Dharnai,Children,3,-1.75,15
+Dharnai,Adults,3,1.50,28
+Dharnai,Adults,3,2.00,24
+Dharnai,Seniors,3,2.75,42
+Dharnai,Seniors,3,3.00,39
+Hiware Bazar,Children,4,-1.00,19
+Hiware Bazar,Children,4,-1.50,14
+Hiware Bazar,Adults,4,1.25,24
+Hiware Bazar,Adults,4,1.75,29
+Hiware Bazar,Seniors,4,2.00,36
+Hiware Bazar,Seniors,4,2.50,31
+Khonoma,Children,5,-0.75,21
+Khonoma,Children,5,-1.25,16
+Khonoma,Adults,5,1.00,27
+Khonoma,Adults,5,1.50,33
+Khonoma,Seniors,5,2.25,40
+Khonoma,Seniors,5,2.75,35
+Malana,Children,6,-1.50,25
+Malana,Children,6,-1.75,20
+Malana,Children,6,-2.00,17
+Malana,Adults,6,1.75,35
+Malana,Adults,6,2.00,30
+Malana,Seniors,6,2.50,45
+Malana,Seniors,6,3.00,41
+Pothanikkad,Children,7,-1.00,18
+Pothanikkad,Children,7,-1.25,16
+Pothanikkad,Adults,7,1.25,23
+Pothanikkad,Adults,7,1.50,29
+Pothanikkad,Seniors,7,2.25,37
+Pothanikkad,Seniors,7,2.50,33
+Shani Shingnapur,Children,8,-0.75,22
+Shani Shingnapur,Children,8,-1.00,19
+Shani Shingnapur,Adults,8,1.00,26
+Shani Shingnapur,Adults,8,1.75,22
+Shani Shingnapur,Seniors,8,2.25,39
+Shani Shingnapur,Seniors,8,2.75,36
+Mawlynnong,Children,9,-1.75,16
+Mawlynnong,Adults,9,2.00,25
+Mawlynnong,Seniors,9,3.00,40
+Punsari,Children,10,-1.25,18
+Punsari,Adults,10,1.50,30
+Punsari,Seniors,10,2.50,38
+Dharnai,Children,11,-1.00,20
+Dharnai,Adults,11,1.25,26
+Dharnai,Seniors,11,2.00,34
+Hiware Bazar,Children,12,-1.50,17
+Hiware Bazar,Adults,12,1.75,31
+Hiware Bazar,Seniors,12,2.75,43
+Khonoma,Children,1,-2.00,15
+Khonoma,Adults,2,2.25,28
+Khonoma,Seniors,3,3.25,44
+Malana,Children,4,-0.50,24
+Malana,Adults,5,0.75,29
+Malana,Seniors,6,1.75,38
+Pothanikkad,Children,7,-2.25,14
+Pothanikkad,Adults,8,2.50,32
+Pothanikkad,Seniors,9,3.50,46
+Shani Shingnapur,Children,10,-1.75,21
+Shani Shingnapur,Adults,11,2.00,27
+Shani Shingnapur,Seniors,12,3.00,42
